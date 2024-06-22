@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+# File to store the IP
+IP_FILE="/tmp/stored_ip.txt"
+
+if [[ -n "$1" ]]; then
+    # If an argument is provided, assume it's the IP and store it
+    echo -n "$1" > "$IP_FILE"
+    echo "IP $1 stored."
+else
+    # If no argument is provided, read the IP from the file
+    if [[ -f "$IP_FILE" ]]; then
+        IP=$(cat "$IP_FILE" | tr -d '\n')
+        echo -n "$IP" | xsel --clipboard
+        echo "IP $IP saved to clipboard."
+    else
+        echo "No IP stored."
+    fi
+fi
+
